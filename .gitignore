@@ -47,3 +47,5 @@ Thumbs.db
 .sass-cache
 _site
 Gemfile.lock
+bin
+target
