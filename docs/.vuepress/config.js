@@ -13,7 +13,7 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
-        repo: 'myguddy/sam-vuepressy',
+        repo: 'myguddy/sam-k8s-lab',
         editLinks: true,
         lastUpdated: 'Last Updated',
         nav: [
@@ -23,14 +23,21 @@ module.exports = {
             { text: 'Monitoring', link: '/monitoring/' }
         ],
         sidebar: {
-            '/cicd/':[
-                'info', 
+            '/cicd/': [
+                'info',
                 'architecture',
-                'hands-on'           
+                'hands-on'
             ],
             '/': [
                 ''
             ],
         }
-    }
+    },
+    configureWebpack: {
+        resolve: {
+          alias: {
+            '@alias': 'docs/.vuepress/public/img'
+          }
+        }
+      }
 }
