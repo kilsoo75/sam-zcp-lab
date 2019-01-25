@@ -38,20 +38,6 @@ module.exports = {
                 children:[
                     '/handson/step01',
                 ]
-            },
-            {
-                title: 'Logging',
-                collapsable: true,
-                children:[
-                    '/cicd/hands-on'
-                ]
-            },
-            {
-                title: 'Monitoring',
-                collapsable: true,
-                children:[
-                    '/cicd/hands-on'
-                ]
             }
         ]
     }
