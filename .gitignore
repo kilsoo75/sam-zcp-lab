@@ -49,4 +49,4 @@ _site
 Gemfile.lock
 bin
 target
-.vuepress/dist
+.vuepress/dist/
