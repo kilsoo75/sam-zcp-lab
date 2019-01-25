@@ -1,6 +1,5 @@
 ---
 title: Info
-
 ---
 
 # CICD
