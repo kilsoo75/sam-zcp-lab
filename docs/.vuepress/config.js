@@ -19,25 +19,40 @@ module.exports = {
         nav: [
             { text: 'Home', link: '/' },
             { text: 'CICD', link: '/cicd/' },
+            { text: 'Hands-On', link: '/handson/step01' },
             { text: 'Logging', link: '/logging/' },
             { text: 'Monitoring', link: '/monitoring/' }
         ],
-        sidebar: {
-            '/cicd/': [
-                'info',
-                'architecture',
-                'hands-on'
-            ],
-            '/': [
-                ''
-            ],
-        }
-    },
-    configureWebpack: {
-        resolve: {
-          alias: {
-            '@alias': 'docs/.vuepress/public/img'
-          }
-        }
-      }
+        sidebar: [
+            {
+                title: 'CICD',
+                collapsable: true,
+                children:[
+                    '/cicd/',
+                    '/cicd/strategies'
+                ]
+            },
+            {
+                title: 'Hands-On',
+                collapsable: true,
+                children:[
+                    '/handson/step01',
+                ]
+            },
+            {
+                title: 'Logging',
+                collapsable: true,
+                children:[
+                    '/cicd/hands-on'
+                ]
+            },
+            {
+                title: 'Monitoring',
+                collapsable: true,
+                children:[
+                    '/cicd/hands-on'
+                ]
+            }
+        ]
+    }
 }
