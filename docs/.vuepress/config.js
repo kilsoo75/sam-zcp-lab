@@ -37,6 +37,7 @@ module.exports = {
                 collapsable: true,
                 children:[
                     '/handson/step01',
+                    '/handson/step02',
                 ]
             }
         ]
