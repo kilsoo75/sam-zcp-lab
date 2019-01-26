@@ -16,6 +16,7 @@ module.exports = {
         repo: 'myguddy/sam-k8s-lab',
         editLinks: true,
         lastUpdated: 'Last Updated',
+        docsDir: 'docs',
         nav: [
             { text: 'Home', link: '/' },
             { text: 'CICD', link: '/cicd/' },
