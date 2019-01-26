@@ -1,6 +1,6 @@
 ---
 title: Strategies
-next: false
+next: /handson/step01.md
 ---
 
 #  CI/CD Strategies

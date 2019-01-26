@@ -1,17 +1,18 @@
 ---
 title: Monitoring Hands-On
+next: false
 ---
 
 # Monitoring Hands-On
-
-
-> * Demo Application 및 JMX Exporter를 Kubernetes cluster에 배포
-> * Kubernetes로 부터 App 및 JMX Exporter target 정보를 discovery
-> * Target으로 부터 Pod 및 JVM metrics 수집
-> * Grafana dashboard에서 Pod 및 JMX metrics 정보를 시각
+::: tip
+* Demo Application 및 JMX Exporter를 Kubernetes cluster에 배포
+* Kubernetes로 부터 App 및 JMX Exporter target 정보를 discovery
+* Target으로 부터 Pod 및 JVM metrics 수집
+* Grafana dashboard에서 Pod 및 JMX metrics 정보를 시각
+:::
 
 ![](./img/2019-01-26-20-31-01.png)
----
+
 
 ## Step 1 : Application
 1. Demo Application 다운로드
@@ -124,3 +125,6 @@ FROM openjdk:8-jdk-alpine
 6. 기타 Dashboard
    
    ![](./img/2019-01-26-20-50-26.png)
+
+---
+[[toc]]

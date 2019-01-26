@@ -1,12 +1,16 @@
 ---
 title: Overview
+prev: false
 next: handson
 ---
 
 # Monitoring
-> * Production 환경에서 Kubernetes 사용 비율 증가 => 컨테이너 기반 운영 환경 증가
-> * Container 환경에서 모니터링이 새로운 도전 과제로 급부상
-> * 클라우드 환경에서 동적으로 생성되고 소멸되는 자원들의 모니터링의 어려움
+::: tip
+* Production 환경에서 Kubernetes 사용 비율 증가 => 컨테이너 기반 운영 환경 증가
+* Container 환경에서 모니터링이 새로운 도전 과제로 급부상
+* 클라우드 환경에서 동적으로 생성되고 소멸되는 자원들의 모니터링의 어려움
+:::
+
 
 ![](./img/2019-01-26-20-18-20.png)
 
@@ -39,3 +43,5 @@ next: handson
 ![](./img/2019-01-26-20-23-04.png)
 
 
+---
+[[toc]]

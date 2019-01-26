@@ -1,6 +1,7 @@
 ---
 title: Step 04
 sidebarDepth: 3
+next: false
 ---
 
 # Step 04. Canary Deploy
@@ -152,4 +153,4 @@ podTemplate(label:label,
    ![](./img/2019-01-26-19-50-28.png)
 
 ---
-감사합니다.
+[[toc]]
