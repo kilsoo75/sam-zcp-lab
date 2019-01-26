@@ -14,8 +14,6 @@ next: handson
 
 ![](./img/2019-01-26-20-18-20.png)
 
-## Architecture
-
 ## On-Premise
 > * 고사양의 서버에 Application을 크게 운영
 > * Monitoring Agent를 서버에 설치
