@@ -41,6 +41,21 @@ module.exports = {
                     '/handson/step03',
                     '/handson/step04',
                 ]
+            },
+            {
+                title: 'Logging',
+                collapsable: true,
+                children:[
+                    '/logging/',
+                ]
+            },
+            {
+                title: 'Monitoring',
+                collapsable: true,
+                children:[
+                    '/monitoring/',
+                    '/monitoring/handson',
+                ]
             }
         ]
     }
