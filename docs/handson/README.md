@@ -1,8 +1,13 @@
 ---
+<<<<<<< HEAD:docs/cicd/info.md
 title: Info
+=======
+title: Hands-On Guide
+sidebarDepth: 1
+>>>>>>> documentation:docs/handson/README.md
 ---
 
-# CICD
+# Overview
 
 ## Problems
 
@@ -14,15 +19,13 @@ title: Info
 * Application의 복잡도 증가
 * 관리 대상 서비스/인스턴스 증가
 
-
 ## Solution 
 
 * 운영환경과 동일한 Infrastructure/환경에서 테스트
 * 빈번하고 반복적인 테스트
 * Code 기반으로 Development/Staging/Production 환경에 적용
 * 빠른 배포 환경
-* 표준화를 통한 빌드/배포 프로세스 자동화 
+* 표준화를 통한 빌드/배포 프로세스 자동화
 
 ### Process
 
-![](./2019-01-25-17-54-03.png)

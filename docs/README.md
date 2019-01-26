@@ -10,5 +10,5 @@ features:
   details: Configure log4j and the way of analyze the log data. Check out the centralized logging data.
 - title: Monitoring
   details: Realitime visualization of application status using ZCP.
-footer: MIT Licensed | Copyright © 2018-present Evan You
+footer: MIT Licensed | Copyright © 2019-present GUDDY
 ---

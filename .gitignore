@@ -49,4 +49,5 @@ _site
 Gemfile.lock
 bin
 target
-.vuepress/dist/
+docs/.vuepress/dist/
+docs/.vuepress/dist
