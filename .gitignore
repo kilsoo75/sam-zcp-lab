@@ -48,6 +48,6 @@ Thumbs.db
 _site
 Gemfile.lock
 bin
-/target/
-docs/.vuepress/dist/
+/target/*
+docs/.vuepress/dist/*
 docs/.vuepress/dist
