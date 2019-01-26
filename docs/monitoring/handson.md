@@ -107,7 +107,7 @@ FROM openjdk:8-jdk-alpine
      * `jvm_memory_used_bytes{area="heap",id="PS Survivor Space",} 4390912.0`
      * `jvm_memory_used_bytes{area="heap",id="PS Old Gen",} 1.6629768E7`
 
-## Step4 : Dashboard 구성
+## Step 4 : Dashboard 구성
 1. Import 메뉴 Click
 
 ![](./img/2019-01-26-20-48-17.png)
