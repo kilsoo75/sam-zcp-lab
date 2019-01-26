@@ -1,5 +1,6 @@
 ---
 title: Step 02
+sidebarDepth: 3
 next: step03
 ---
 
@@ -46,12 +47,65 @@ next: step03
    
    ![](./img/2019-01-26-14-00-02.png)
 
-6. Pipeline script 작성 [Source Link](https://github.com/cnpst/zcp-local-sample/blob/master/Dockerfile)
+6. Pipeline script : [Source Link](https://github.com/cnpst/zcp-local-sample/blob/master/Dockerfile)
+   
+### Script 작성법
 
+#### 구성
+
+| Block | 내용                        |
+| :---: | :------------------------ |
+| 변수정의  | 내장 변수 및 Job에 필요한 기본 변수 선언 |
+| 환경구성  | 내부에서 사용할 Resource에 필요한  pod 정의|
+| Volume 선언| 각각의 pod에서 사용할 저장소 설정 |
+| Job 선언| Git Checkout, Source Build, Docker Image build, Deploy|
+
+#### 변수정의
+* label: 내부에서 사용하는 UUID
+* DOCKER_IMAGE: Pipeline에서 사용할 이름. [Registry URL]/[Repository Name]/[Image Name]. Tag명은 생략하고 정의 함.
+  Tag는 변수로 입력 받거나, 자동할당됨
+* K8S_NAMESPACE: 배포영역의 Namespace 이름
+* VERSION: 개발 단계는 develop으로 고정처리함.
+* ZCP_USERID : 내부 정의 변수로서 기본값 사용
+  
 ```groovy
 // Jenkins Shared Library 적용
 @Library(‘retort-lib’) _
 // Jenkins slave pod에 uuid 생성
+def label = “Jenkins-${UUID.randomUUID().toString()}”
+def DOCKER_IMAGE = ‘edu01/spring-boot-cicd-demo‘
+def K8S_NAMESPACE = ‘edu01‘
+def VERSION = ‘develop’
+
+// Pod template 시작
+podTemplate(label:label,
+    // Kubernetes cluste에 배포하기 위한 secret
+    serviceAccount: “zcp-system-sa-${ZCP_USERID}”,
+    ...){
+        ......
+    }
+}
+```
+#### 환경구성 (기본값 사용)
+(생략)
+#### Volume 선언 (기본값 사용)
+(생략)
+
+#### Job 선언
+> Job의 순서가 중요함
+
+1. Git checkout
+2. Source Build(Maven): Public Maven Repository 접근이 안되는 경우, Jenkins에 Provate Nexus 서버 설정 필요함.
+3. Docker Image Build: ZCP 용 Private Registry 주소를 위한  ${HARBOR_REGISTRY}는 내장된 변수로서, Public Docker Hub를 사용할 경우 생략 또는 Registry 주소를 명시적으로 지정해야함 
+`dockerCmd.build tag: ${HARBOR_REGISTRY}/${DOCKER_IMAGE}:${VERSION}"`
+4. Deploy: 필요한 kubectl 명령어를 반복해서 적용
+`kubeCmd.apply file: 'k8s/service.yaml', namespace: K8S_NAMESPACE`
+
+Script Source
+```groovy
+// Jenkins Shared Library 적용
+@Library(‘retort-lib’) _
+// Jenkins slave pod에 uid 생성
 def label = “Jenkins-${UUID.randomUUID().toString()}”
 // Kubernetes cluste에 배포하기 위한 사용자 계정def ZCP_USERID = ‘edu01’
 // Docker image 명
@@ -119,3 +173,13 @@ podTemplate(label:label,
     }
 }
 ```
+
+### 배포실행 및 확인
+
+1. 실행 : Job Menu > *Build Now* Click
+   
+   ![](./img/2019-01-26-15-34-25.png)
+
+2. 확인 : 콘솔출력
+
+   ![](./img/2019-01-26-15-35-02.png)

@@ -38,6 +38,8 @@ module.exports = {
                 children:[
                     '/handson/step01',
                     '/handson/step02',
+                    '/handson/step03',
+                    '/handson/step04',
                 ]
             }
         ]

@@ -1,10 +1,6 @@
 ---
-<<<<<<< HEAD:docs/cicd/info.md
-title: Info
-=======
 title: Hands-On Guide
 sidebarDepth: 1
->>>>>>> documentation:docs/handson/README.md
 ---
 
 # Overview
