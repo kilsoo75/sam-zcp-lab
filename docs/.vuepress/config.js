@@ -33,7 +33,7 @@ module.exports = {
                 ]
             },
             {
-                title: 'Hands-On',
+                title: 'CI/CD Hands-On',
                 collapsable: true,
                 children:[
                     '/handson/step01',

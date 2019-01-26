@@ -1,6 +1,7 @@
 ---
 title: Overview
 next: 'strategies'
+sidebarDepth: 0
 ---
 
 # Overview

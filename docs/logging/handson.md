@@ -1,5 +1,5 @@
 ---
-title: Logging Hands-On
+title: Hands-On
 next: false
 ---
 

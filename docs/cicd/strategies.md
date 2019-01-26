@@ -4,8 +4,6 @@ next: /handson/step01.md
 ---
 
 #  CI/CD Strategies
-[[toc]]
-
 
 ## Deploy in Kubernetes
 > Configuration : Ingress <-> Service <-> Deployment  상호 연관 관계
@@ -37,8 +35,6 @@ Example of command
 ```
 kubectl apply -f ./manifest.yaml
 ```
-
-
 
 ## Ramped
 > (aka) : incremental, rolling update
@@ -150,3 +146,6 @@ Traffic
 * blue/green and shadow can be expensive
 * canary and a/b testing should be used if little confidence on the quality of the release
 * canary, a/b testing and shadow might require additional cluster component
+
+---
+[[toc]]

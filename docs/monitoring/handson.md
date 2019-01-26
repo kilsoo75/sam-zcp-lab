@@ -1,5 +1,5 @@
 ---
-title: Monitoring Hands-On
+title: Hands-On
 next: false
 ---
 
