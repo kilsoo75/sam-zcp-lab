@@ -4,16 +4,16 @@ title: Monitoring Hands-On
 
 # Monitoring Hands-On
 
-## 실습
+
 > * Demo Application 및 JMX Exporter를 Kubernetes cluster에 배포
 > * Kubernetes로 부터 App 및 JMX Exporter target 정보를 discovery
 > * Target으로 부터 Pod 및 JVM metrics 수집
 > * Grafana dashboard에서 Pod 및 JMX metrics 정보를 시각
 
 ![](./img/2019-01-26-20-31-01.png)
+---
 
-
-### Step 1 : Application
+## Step 1 : Application
 1. Demo Application 다운로드
    1. `$ git clone https://github.com/cloudz-labs/spring-boot-monitoring-demo`
    2. `$ cd spring-boot-monitoring-demo`
@@ -57,7 +57,7 @@ management:
       prometheus:
         enabled: true
 ```
-### Step 2 : Docker Image
+## Step 2 : Docker Image
 
 1. Dockerfile 작성
 ```Dockerfile
@@ -76,7 +76,7 @@ FROM openjdk:8-jdk-alpine
    * `$ docker tag spring-boot-monitoring-demo:[VERSION] [REPOSITORY_ADDRESS]/spring-boot-monitoring-demo:[VERSION]`
    * `$ docker push [REPOSITORY_ADDRESS]/spring-boot-monitoring-demo:[VERSION]`
 
-### Step 3 : Kubernetes Deploy
+## Step 3 : Kubernetes Deploy
 1. deployment.yaml
    * spec.template.metadata.annotations.prometheus.io/scrape : Discorvery 대상 여부
    * spec.template.metadata.annotations.prometheus.io/port : Discovery target port
@@ -106,7 +106,7 @@ FROM openjdk:8-jdk-alpine
      * `jvm_memory_used_bytes{area="heap",id="PS Survivor Space",} 4390912.0`
      * `jvm_memory_used_bytes{area="heap",id="PS Old Gen",} 1.6629768E7`
 
-### Step4 : Dashboard 구성
+## Step4 : Dashboard 구성
 1. Import 메뉴 Click
 
 ![](./img/2019-01-26-20-48-17.png)

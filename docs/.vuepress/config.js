@@ -47,6 +47,7 @@ module.exports = {
                 collapsable: true,
                 children:[
                     '/logging/',
+                    '/logging/handson',
                 ]
             },
             {
