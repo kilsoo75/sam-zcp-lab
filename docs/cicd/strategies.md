@@ -6,8 +6,10 @@ next: /handson/step01.md
 #  CI/CD Strategies
 
 ## Deploy in Kubernetes
-> Configuration : Ingress <-> Service <-> Deployment  상호 연관 관계
-> [Key]:[Value]  형태로 자유롭게 선언하여, 자원 선택시 Filter로 사용됨
+::: tip
+* Configuration : Ingress <-> Service <-> Deployment  상호 연관 관계
+* [Key]:[Value]  형태로 자유롭게 선언하여, 자원 선택시 Filter로 사용됨
+:::
 
 ![](./img/2019-01-25-22-46-00.png)
 (ref. CFCF)
