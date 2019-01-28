@@ -3,6 +3,7 @@ module.exports = {
     description: 'Documentation of CI/CD, Logging, Monitoring',
     base: '/sam-zcp-lab/',
     searchMaxSuggestions: 10,
+    port: 5000,
     markdown: {
         config: md => {
             md.use(require('markdown-it-anchor'));
