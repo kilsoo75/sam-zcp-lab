@@ -30,9 +30,11 @@ next: step02
 
 3. Secret Name 입력, Secret Type Docker Registry Click
 
+[TODO: 입력값에 대한 설명 추가 필요]
+
 4. Docker-server, docker-username, docker-password, docker-email 입력 후 등록
 
-   ![](./img/2019-01-26-00-22-49.png)
+   ![](./img/2019-01-28-11-54-52.png)
 
 ## Set up Jenkins
 > Jenkins 에서 빌드/배포가 실행되면서 필요한 권한 설정과, Kubernetes를 위한 Pipeline 작성 법을 설명함.

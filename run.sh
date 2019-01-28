@@ -10,7 +10,7 @@ git init
 git add -A
 git commit -m deploy
 
-git push -f https://github.com/myguddy/sam-k8s-lab.git master:gh-pages
+git push -f https://github.com/cnpst/sam-zcp-lab.git master:gh-pages
 
 cd -
 
