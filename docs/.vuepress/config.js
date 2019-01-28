@@ -1,7 +1,7 @@
 module.exports = {
     title: 'ZCP Guide',
     description: 'Documentation of CI/CD, Logging, Monitoring',
-    base: '/sam-k8s-lab/',
+    base: '/sam-zcp-lab/',
     searchMaxSuggestions: 10,
     markdown: {
         config: md => {
@@ -13,7 +13,7 @@ module.exports = {
         lineNumbers: true
     },
     themeConfig: {
-        repo: 'myguddy/sam-k8s-lab',
+        repo: 'cnpst/sam-zcp-lab',
         editLinks: true,
         lastUpdated: 'Last Updated',
         docsDir: 'docs',
