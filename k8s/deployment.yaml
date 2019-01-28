@@ -23,10 +23,11 @@ spec:
         - name: harbor-secret
       containers:
       - name: spring-boot-cicd-demo
-        image: pou-dev-registry.cloudzcp.io/edu01/spring-boot-cicd-demo:prod
+        image: labs-registry.cloudzcp.io/edu01/spring-boot-cicd-demo:develop
         ports:
         - containerPort: 8080
           name: tomcat
+        imagePullPolicy: Always
         resources:
           limits:
             cpu: 500m

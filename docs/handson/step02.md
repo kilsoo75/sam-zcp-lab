@@ -8,21 +8,77 @@ next: step03
 
 
 ## Get Sample Application Source
-> ZCP Git으로부터 소스를 다운로드함.
+> Github 의 예제 프로젝트를 개인 Repository 로 Push함.
 
 1. Open browser and go [github.com/cnpst](https://github.com/cnpst)
-2. *Clone or download* > *Download ZIP* click
-3. IDE에 Import
+2. 예제 프로젝트 Checkout
+* *Clone or download* > *Copy* click
 
    ![](./img/2019-01-26-13-37-43.png)
 
-4. 사용하고자 하는 Git Repositroy에  PUSH
+* Eclipse > Git Repository > Clone a Git repository 클릭
 
+   ![](./img/2019-01-28-15-42-20.png)
+
+* URI 입력 후 Next > Next > Finish
+
+   ![](./img/2019-01-28-15-43-56.png)
+
+3. Git Repository 생성
+
+* 좌측 메뉴 > DevOps > 소스 저장소
+
+   ![](./img/2019-01-28-14-37-14.png)
+
+* 계정이 없는 경우 계정 생성
+* 우측 내 저장소 + 버튼 클릭
+
+   ![](./img/2019-01-28-14-39-03.png)
+
+* 저장소 이름을 입력하고 저장소 만들기 버튼 클릭
+
+   ![](./img/2019-01-28-14-42-49.png)
+
+4. 예제 Project를 개인 Repository 에 PUSH
+
+* 개인 Repository 의 Clone URL 복사
+
+   ![](./img/2019-01-28-15-47-16.png)
+
+* Eclipse 에서 origin remote (Github) 삭제
+
+   ![](./img/2019-01-28-15-49-15.png)
+
+* origin remote 로 개인 Repository 등록
+
+   ![](./img/2019-01-28-15-50-23.png)
+
+   ![](./img/2019-01-28-15-51-09.png)
+
+   ![](./img/2019-01-28-15-52-01.png)
+
+   ![](./img/2019-01-28-15-52-59.png)
+
+5. Import Project
+
+* Working Tree 선택 후 팝업 메뉴에서 Import Projects 선택
+   
+   ![](./img/2019-01-28-15-54-20.png)
+
+* Finish 클릭
+
+   ![](./img/2019-01-28-15-55-38.png)
+
+* Project Explorer 에서 확인
+
+   ![](./img/2019-01-28-15-57-00.png)
 
 ## Create Pipeline
-> 사용되는 정보는 User ID : *user01* Namespace : *edu01*
-> Application Project Name = *spring-boot-cicd-demo*
-> 사용자 Git URL : https://github.com/cnpst/zcp-dev-guide.git
+> 사용되는 정보
+* User ID : *edu01*
+* Namespace : *edu01*
+* Application Project Name = *spring-boot-cicd-demo*
+* 사용자 Git URL : https://labs-git.cloudzcp.io/*edu01*/spring-boot-cicd-demo
 
 ### Development pipeline
 
@@ -37,19 +93,21 @@ next: step03
    * Definition 선택 : *Pipeline script from SCM*
    * SCM 선택: *Git*
    * Repositories
-     * Repository URL 입력: *https://github.com/cnpst/zcp-dev-guide.git*
+     * Repository URL 입력: *https://labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo.git*
      * Credentials 선택: *edu01/...(GIT CREDENTIALS)*
-   * Branch to build 입력 : **/dev*
+   * Branch to build 입력 : **/master*
    * Repository browser 선택 : *gogs*
-     * URL 입력: *https://github.com/cnpst/zcp-dev-guide* ( '.git' 제거, browser url )
+     * URL 입력: *https://labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo* ( '.git' 제거, browser url )
    * Script Path 입력 : *jenkins-pipeline/deploy-pipeline* ( Git프로젝트 Root Path기준 상대 경로 )
    * 저장
    
    ![](./img/2019-01-26-14-00-02.png)
-
-6. Pipeline script : [Source Link](https://github.com/cnpst/zcp-local-sample/blob/master/Dockerfile)
    
 ### Script 작성법
+
+> jenkins-pipeline/deploy-pipeline 
+
+> k8s/deployment.yaml
 
 #### 구성
 
@@ -61,21 +119,26 @@ next: step03
 | Job 선언| Git Checkout, Source Build, Docker Image build, Deploy|
 
 #### 변수정의
+> jenkins-pipeline/deploy-pipeline 파일 수정
+
+> DOCKER_IMAGE, ZCP_USERID, K8S_NAMESPACE 변경 후 Git Remote 로 Push
 * label: 내부에서 사용하는 UUID
 * DOCKER_IMAGE: Pipeline에서 사용할 이름. [Registry URL]/[Repository Name]/[Image Name]. Tag명은 생략하고 정의 함.
   Tag는 변수로 입력 받거나, 자동할당됨
+* ZCP_USERID : 배포 시 사용 할 ZCP 사용자 계정.
 * K8S_NAMESPACE: 배포영역의 Namespace 이름
 * VERSION: 개발 단계는 develop으로 고정처리함.
-* ZCP_USERID : 내부 정의 변수로서 기본값 사용
+
   
 ```groovy
 // Jenkins Shared Library 적용
 @Library(‘retort-lib’) _
 // Jenkins slave pod에 uuid 생성
 def label = “Jenkins-${UUID.randomUUID().toString()}”
-def DOCKER_IMAGE = ‘edu01/spring-boot-cicd-demo‘
-def K8S_NAMESPACE = ‘edu01‘
-def VERSION = ‘develop’
+def ZCP_USERID = 'edu01'
+def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo'
+def K8S_NAMESPACE = 'edu01'
+def VERSION = 'develop'
 
 // Pod template 시작
 podTemplate(label:label,
@@ -86,8 +149,22 @@ podTemplate(label:label,
     }
 }
 ```
-#### 환경구성 (기본값 사용)
-(생략)
+#### 환경구성 
+> k8s/deployment.yaml 파일 수정
+
+> 배포 할 Docker image 주소 변경 후 Git Remote 로 Push
+
+```yaml
+...
+      containers:
+      - name: spring-boot-cicd-demo
+        image: labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo:develop
+        ports:
+        - containerPort: 8080
+          name: tomcat
+...
+```
+
 #### Volume 선언 (기본값 사용)
 (생략)
 
@@ -107,7 +184,8 @@ Script Source
 @Library(‘retort-lib’) _
 // Jenkins slave pod에 uid 생성
 def label = “Jenkins-${UUID.randomUUID().toString()}”
-// Kubernetes cluste에 배포하기 위한 사용자 계정def ZCP_USERID = ‘edu01’
+// Kubernetes cluste에 배포하기 위한 사용자 계정
+def ZCP_USERID = ‘edu01’
 // Docker image 명
 def DOCKER_IMAGE = ‘edu01/spring-boot-cicd-demo‘
 // 배포 할 Kubernetes namespace

@@ -51,3 +51,4 @@ bin
 /target/*
 docs/.vuepress/dist/*
 docs/.vuepress/dist
+yarn.lock

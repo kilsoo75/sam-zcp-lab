@@ -1,6 +1,5 @@
 package io.noga.sample.search;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
@@ -8,11 +7,13 @@ import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Repository;
-import org.springframework.util.ResourceUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -26,6 +27,9 @@ public class SearchRepository implements ApplicationContextAware {
 	private static final Logger logger = LoggerFactory.getLogger(SearchRepository.class);
 	
 	private JsonNode rootNode;
+	
+	@Autowired
+	private ResourceLoader loader;
 	
 	@Value("${data.path}")
 	private String dataPath;
@@ -72,11 +76,13 @@ public class SearchRepository implements ApplicationContextAware {
 
 	@Override
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-		File file;
+		
 		try {
-			file = ResourceUtils.getFile(dataPath);
+			Resource resource = loader.getResource(dataPath);
+			
+			// file = ResourceUtils.getFile(dataPath);
 			ObjectMapper objectMapper = new ObjectMapper();
-			rootNode = objectMapper.readTree(file);
+			rootNode = objectMapper.readTree(resource.getInputStream());
 		} catch (FileNotFoundException e) {
 			logger.error("{} not exists.", dataPath, e);
 		} catch (JsonParseException e) {
