@@ -19,6 +19,7 @@ new Vue({
         addToCart: function (product) {
             this.total += product.price;
             var found = false;
+            
             for (var i = 0; i < this.cart.length; i++) {
                 if (this.cart[i].id === product.id) {
                     this.cart[i].qty++;
@@ -33,11 +34,14 @@ new Vue({
                     qty: 1
                 });
             }
-
+            var path="/carts";
+            this.$http.post(path,product);
         },
         inc: function (item) {
             item.qty++;
             this.total += item.price;
+            var path="/carts";
+            this.$http.post(path,item);
         },
         dec: function (item) {
             item.qty--;
@@ -46,6 +50,8 @@ new Vue({
                 var i = this.cart.indexOf(item);
                 this.cart.splice(i, 1);
             }
+            var path="/carts/".concat(item.id);
+            this.$http.delete(path);
         },
         onSubmit: function () {
             this.products = [];

@@ -30,11 +30,20 @@ next: step02
 
 3. Secret Name 입력, Secret Type Docker Registry Click
 
-[TODO: 입력값에 대한 설명 추가 필요]
-
 4. Docker-server, docker-username, docker-password, docker-email 입력 후 등록
-
-   ![](./img/2019-01-28-11-54-52.png)
+   
+   | Key | Value | Remark |
+   | :---: | :--- | :--- |
+   | Secret Name | harbor-secret | Deployment.yaml에서 지정된 secret이름과 동일해야함 |
+   | Secret Type | Docker Registry | -- |
+   | Label | (선택값) | kubernetes의 resource의 label값으로 저장됨 |
+   | docker-server | labs-registry.cloudzcp.io | Demo용 주소 |
+   | docker-username | *userid* | Demo에 사용되는 Cloudz console ID |
+   | docker-password | *passowrd* | Demo에 사용되는 ID의 암호 |
+   | docker-email | (선택값) | |
+   
+   
+   ![](./img/2019-01-28-14-15-35.png)
 
 ## Set up Jenkins
 > Jenkins 에서 빌드/배포가 실행되면서 필요한 권한 설정과, Kubernetes를 위한 Pipeline 작성 법을 설명함.
