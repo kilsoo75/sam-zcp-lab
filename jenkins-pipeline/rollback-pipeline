@@ -15,7 +15,7 @@ podTemplate(label:label,
     node(label) {
         stage('ROLLBACK') {
             container('kubectl') {
-                kubeCmd.rolloutUndo type: TYPE, name: DEPLOY_NAME, namespace: K8S_NAMESPACE, wait: 300
+                //TODO: kubectl command block to rollback
             }
         }
     }

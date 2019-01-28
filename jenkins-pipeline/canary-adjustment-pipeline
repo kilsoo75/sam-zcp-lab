@@ -14,8 +14,7 @@ podTemplate(label:label,
     node(label) {
         stage('kubectl') {
             container('kubectl') {
-                kubeCmd.scale type: TYPE, name: ORIGIN_DEPLOYMENT_NAME, replicas: ORIGIN_INSTANCE_COUNT, namespace: K8S_NAMESPACE
-                kubeCmd.scale type: TYPE, name: CANARY_DEPLOYMENT_NAME, replicas: CANARY_INSTANCE_COUNT, namespace: K8S_NAMESPACE
+            //TODO: kubectl command block to adjust scale/instance
             }
         }
     }

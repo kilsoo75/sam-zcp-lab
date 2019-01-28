@@ -31,16 +31,14 @@ podTemplate(label:label,
  
         stage('BUILD DOCKER IMAGE') {
             container('docker') {
-                dockerCmd.build tag: "${HARBOR_REGISTRY}/${DOCKER_IMAGE}:${VERSION}"
-                dockerCmd.push registry: HARBOR_REGISTRY, imageName: DOCKER_IMAGE, imageVersion: VERSION, credentialsId: "HARBOR_CREDENTIALS"
+                //TODO: Docker image build block
             }
         }
  
         stage('DEPLOY') {
             container('kubectl') {
-                kubeCmd.apply file: 'k8s/service.yaml', namespace: K8S_NAMESPACE
-                kubeCmd.apply file: 'k8s/ingress.yaml', namespace: K8S_NAMESPACE
-                kubeCmd.apply file: 'k8s/deployment.yaml', namespace: K8S_NAMESPACE, wait: 300
+                //TODO: kubectl command block
+                // deploy service, ingress, deployment
             }
         }
     }
