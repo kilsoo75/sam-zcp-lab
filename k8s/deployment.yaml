@@ -18,6 +18,10 @@ spec:
     metadata:
       labels:
         app: spring-boot-cicd-demo
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8090"
+        prometheus.io/path: /prometheus
     spec:
       imagePullSecrets:
         - name: harbor-secret
@@ -27,6 +31,8 @@ spec:
         ports:
         - containerPort: 8080
           name: tomcat
+        - containerPort: 8090
+          name: actuator
         imagePullPolicy: Always
         resources:
           limits:

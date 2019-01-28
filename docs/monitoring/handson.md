@@ -97,14 +97,14 @@ FROM openjdk:8-jdk-alpine
         prometheus.io/path: /prometheus
       spec:
         containers:
-        - name: spring-boot-monitoring-demo
+        - name: spring-boot-cicd-demo
           image: cloudzcp/spring-boot-monitoring-demo:latest
 ...
 ```
 2. Demo Application 배포
-   * `kubectl apply -f k8s/deployment-monitoring.yaml`
+   * `kubectl apply -f k8s/deployment.yaml`
 3. Metric확인
-   * `kubectl port-forward spring-boot-monitoring-demo-5795695496-ljfkw 8090:8090`
+   * `kubectl port-forward spring-boot-cicd-demo-5795695496-ljfkw 8090:8090`
    * `curl localost:8090`
    * 결과
      * `jvm_memory_used_bytes{area="heap",id="PS Survivor Space",} 4390912.0`
@@ -116,7 +116,7 @@ FROM openjdk:8-jdk-alpine
 ![](./img/2019-01-26-20-48-17.png)
 
 2. *Upload .json File* Click
-3. 다운로드 받은 spring-boot-monitoring-demo 프로젝트 > grafana > micrometer-grafana-dashboard.json 파일 import
+3. 다운로드 받은 sam-zcp-lab 프로젝트 > grafana > micrometer-grafana-dashboard.json 파일 import
 4. Options > prometheus combo box > prometheus data source 선택 > `Import` 버튼 선택 
 
 ![](./img/2019-01-26-20-49-31.png)
