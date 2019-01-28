@@ -10,7 +10,7 @@ next: step03
 ## Get Sample Application Source
 > Github 의 예제 프로젝트를 개인 Repository 로 Push함.
 
-1. Open browser and go [github.com/cnpst](https://github.com/cnpst)
+1. Open browser and go [github.com/cnpst/sam-zcp-lab](https://github.com/cnpst/sam-zpc-lab)
 2. 예제 프로젝트 Checkout
 * *Clone or download* > *Copy* click
 
@@ -78,7 +78,7 @@ next: step03
 * User ID : *edu01*
 * Namespace : *edu01*
 * Application Project Name = *spring-boot-cicd-demo*
-* 사용자 Git URL : https://labs-git.cloudzcp.io/*edu01*/spring-boot-cicd-demo
+* 사용자 Git URL : https://labs-git.cloudzcp.io/*[edu01]*/spring-boot-cicd-demo
 
 ### Development pipeline
 
@@ -93,11 +93,11 @@ next: step03
    * Definition 선택 : *Pipeline script from SCM*
    * SCM 선택: *Git*
    * Repositories
-     * Repository URL 입력: *https://labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo.git*
+     * Repository URL 입력: *https://labs-git.cloudzcp.io/[edu01]/spring-boot-cicd-demo.git*
      * Credentials 선택: *edu01/...(GIT CREDENTIALS)*
    * Branch to build 입력 : **/master*
    * Repository browser 선택 : *gogs*
-     * URL 입력: *https://labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo* ( '.git' 제거, browser url )
+     * URL 입력: *https://labs-git.cloudzcp.io/[edu01]/spring-boot-cicd-demo* ( '.git' 제거, browser url )
    * Script Path 입력 : *jenkins-pipeline/deploy-pipeline* ( Git프로젝트 Root Path기준 상대 경로 )
    * 저장
    
@@ -136,7 +136,7 @@ next: step03
 // Jenkins slave pod에 uuid 생성
 def label = “Jenkins-${UUID.randomUUID().toString()}”
 def ZCP_USERID = 'edu01'
-def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo'
+def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo' // Harbor Project Name : edu01
 def K8S_NAMESPACE = 'edu01'
 def VERSION = 'develop'
 
@@ -150,7 +150,7 @@ podTemplate(label:label,
 }
 ```
 #### 환경구성 
-> k8s/deployment.yaml 파일 수정
+1. k8s/deployment.yaml 파일 수정
 
 > 배포 할 Docker image 주소 변경 후 Git Remote 로 Push
 
@@ -158,11 +158,32 @@ podTemplate(label:label,
 ...
       containers:
       - name: spring-boot-cicd-demo
-        image: labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo:develop
+        image: labs-registry.cloudzcp.io/edu01/spring-boot-cicd-demo:develop
         ports:
         - containerPort: 8080
           name: tomcat
 ...
+```
+2. k8s/ingress.yaml 작성
+> 외부에 서비스 노출에 필요한 Domain 정보 설정
+> 사용자 ID 기준으로 host 정보 변경
+> (테스트용) host 파일에 IP(169.56.106.158) 등록
+
+```yaml
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: spring-boot-cicd-demo
+spec:
+  rules:
+  - host: [edu01.cloudzcp.io]
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: spring-boot-cicd-demo
+          servicePort: 80
+
 ```
 
 #### Volume 선언 (기본값 사용)

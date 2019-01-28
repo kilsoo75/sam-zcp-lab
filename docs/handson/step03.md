@@ -40,7 +40,7 @@ spring-boot-cicd-demo-dev-rolling 이름으로 Pipeline작성
 
 [Step 02 Documentation 참조](step02.md)
 
-1. Pipeline 설정에서 Parameter 설정 : VERSION처리를 위해 Pipeline에 변수 추가
+1. Pipeline 설정에서 Parameter 설정 : VERSION 처리를 위해 Pipeline에 변수 추가
 2. General 영역에서 *이 빌드는 매개변수가 있습니다.* 체크
 3. 매개변수 추가 Click > String Parameter
    1. 매개변수명 : VERSION
@@ -59,6 +59,11 @@ spring-boot-cicd-demo-dev-rolling 이름으로 Pipeline작성
  yaml.update file: 'k8s/deployment.yaml', update: ['.spec.template.spec.containers[0].image': "${HARBOR_REGISTRY}/${DOCKER_IMAGE}:${VERSION}"]
 
 ```
+#### 소스변경
+1. Open file(./src/main/resource/static/css/style.css)
+2. 47 line의 색상 값 변경 (background-color: #157ed2; --> background-color: red)
+3. Stage & Commit
+4. Push to origin/master(Git Server)
 
 #### Rolling update 실행
 
