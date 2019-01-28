@@ -105,6 +105,10 @@ next: step03
    
 ### Script 작성법
 
+> jenkins-pipeline/deploy-pipeline 
+
+> k8s/deployment.yaml
+
 #### 구성
 
 | Block | 내용                        |
@@ -115,21 +119,26 @@ next: step03
 | Job 선언| Git Checkout, Source Build, Docker Image build, Deploy|
 
 #### 변수정의
+> jenkins-pipeline/deploy-pipeline 파일 수정
+
+> DOCKER_IMAGE, ZCP_USERID, K8S_NAMESPACE 변경 후 Git Remote 로 Push
 * label: 내부에서 사용하는 UUID
 * DOCKER_IMAGE: Pipeline에서 사용할 이름. [Registry URL]/[Repository Name]/[Image Name]. Tag명은 생략하고 정의 함.
   Tag는 변수로 입력 받거나, 자동할당됨
+* ZCP_USERID : 배포 시 사용 할 ZCP 사용자 계정.
 * K8S_NAMESPACE: 배포영역의 Namespace 이름
 * VERSION: 개발 단계는 develop으로 고정처리함.
-* ZCP_USERID : 내부 정의 변수로서 기본값 사용
+
   
 ```groovy
 // Jenkins Shared Library 적용
 @Library(‘retort-lib’) _
 // Jenkins slave pod에 uuid 생성
 def label = “Jenkins-${UUID.randomUUID().toString()}”
-def DOCKER_IMAGE = ‘edu01/spring-boot-cicd-demo‘
-def K8S_NAMESPACE = ‘edu01‘
-def VERSION = ‘develop’
+def ZCP_USERID = 'edu01'
+def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo'
+def K8S_NAMESPACE = 'edu01'
+def VERSION = 'develop'
 
 // Pod template 시작
 podTemplate(label:label,
@@ -140,8 +149,22 @@ podTemplate(label:label,
     }
 }
 ```
-#### 환경구성 (기본값 사용)
-(생략)
+#### 환경구성 
+> k8s/deployment.yaml 파일 수정
+
+> 배포 할 Docker image 주소 변경 후 Git Remote 로 Push
+
+```yaml
+...
+      containers:
+      - name: spring-boot-cicd-demo
+        image: labs-git.cloudzcp.io/edu01/spring-boot-cicd-demo:develop
+        ports:
+        - containerPort: 8080
+          name: tomcat
+...
+```
+
 #### Volume 선언 (기본값 사용)
 (생략)
 
@@ -161,7 +184,8 @@ Script Source
 @Library(‘retort-lib’) _
 // Jenkins slave pod에 uid 생성
 def label = “Jenkins-${UUID.randomUUID().toString()}”
-// Kubernetes cluste에 배포하기 위한 사용자 계정def ZCP_USERID = ‘edu01’
+// Kubernetes cluste에 배포하기 위한 사용자 계정
+def ZCP_USERID = ‘edu01’
 // Docker image 명
 def DOCKER_IMAGE = ‘edu01/spring-boot-cicd-demo‘
 // 배포 할 Kubernetes namespace
