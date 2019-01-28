@@ -16,11 +16,9 @@ Canary Deploy 시나리오
 ```
 ![](./img/2019-01-26-19-32-02.png)
 
-### Deployment.yaml 수정
+### Deployment-canary.yaml 작성
 
 * spec.strategy.type: RollUpdate
-* spec.strategy.rollingUpdate.maxSurge: 1
-* spec.strategy.rollingUpdate.maxUnavailable: 1
 
 ```yaml
 apiVersion: apps/v1
@@ -36,9 +34,6 @@ spec:
       app: spring-boot-cicd-demo
   strategy:
     type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
   template:
     metadata:
       labels:
@@ -48,7 +43,7 @@ spec:
         - name: harbor-secret
       containers:
       - name: spring-boot-cicd-demo
-        image: pou-dev-registry.cloudzcp.io/edu1/spring-boot-cicd-demo:prod
+        image: labs-registry.cloudzcp.io/[edu1]/spring-boot-cicd-demo:prod
         ports:
         - containerPort: 8080
           name: tomcat
@@ -81,7 +76,7 @@ def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo'
 def K8S_NAMESPACE = 'edu01'
 def VERSION = ‘prod’
 def TYPE = ＇deployment‘
-def DEPLOY_NAME = ＇spring-boot-cicd-demo‘
+def DEPLOY_NAME = ＇spring-boot-cicd-demo‘ // Previous Deployment
 ...
         stage(＇DEPLOY＇) {
             container(＇kubectl＇) {

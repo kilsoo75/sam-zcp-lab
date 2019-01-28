@@ -86,7 +86,7 @@ spring-boot-cicd-demo-dev-rollback 이름으로 Pipeline작성
 
     ![](./img/2019-01-26-19-16-35.png)
 
-2. 환경구성 & Volumne은  Deploy 용만 작성
+2. 환경구성 & Volume은  Deploy 용만 작성
 3. Deploy rollback 명령어 작성
 
 ```groovy
