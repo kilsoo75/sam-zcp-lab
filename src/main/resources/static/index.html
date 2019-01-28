@@ -39,7 +39,7 @@
                 <div v-for="product in products" class="product" v-bind:key="product.id">
                     <div>
                         <div class="product-image">
-                            <img v-bind:src="product.thumb" alt="">
+                            <img v-bind:src="'images/' + product.thumb" alt="">
                         </div>
                     </div>
                     <div>
