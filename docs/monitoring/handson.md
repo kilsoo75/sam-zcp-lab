@@ -14,7 +14,7 @@ next: false
 ![](./img/2019-01-26-20-31-01.png)
 
 
-## Step 1 : Application
+## Step 1 Application
 1. Demo Application 다운로드
    1. `git clone https://github.com/cnpst/sam-zcp-lab`
    2. `cd sam-zcp-lab`
@@ -61,7 +61,7 @@ management:
 4. maven build
 `mvn clean package`
 
-## Step 2 : Docker Image
+## Step 2 Docker Image
 
 1. Dockerfile 작성
 ```Dockerfile
@@ -80,7 +80,7 @@ FROM openjdk:8-jdk-alpine
    * `docker tag spring-boot-monitoring-demo:[VERSION] [REPOSITORY_ADDRESS]/spring-boot-monitoring-demo:[VERSION]`
    * `docker push [REPOSITORY_ADDRESS]/spring-boot-monitoring-demo:[VERSION]`
 
-## Step 3 : Kubernetes Deploy
+## Step 3 Kubernetes Deploy
 1. deployment.yaml
    * spec.template.metadata.annotations.prometheus.io/scrape : Discorvery 대상 여부
    * spec.template.metadata.annotations.prometheus.io/port : Discovery target port
@@ -110,7 +110,7 @@ FROM openjdk:8-jdk-alpine
      * `jvm_memory_used_bytes{area="heap",id="PS Survivor Space",} 4390912.0`
      * `jvm_memory_used_bytes{area="heap",id="PS Old Gen",} 1.6629768E7`
 
-## Step 4 : Dashboard 구성
+## Step 4 Dashboard 구성
 1. Import 메뉴 Click
 
 ![](./img/2019-01-26-20-48-17.png)
