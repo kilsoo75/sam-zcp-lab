@@ -41,8 +41,8 @@ spring-boot-cicd-demo-dev-rolling 이름으로 Pipeline작성
 [Step 02 Documentation 참조](step02.md)
 
 1. Pipeline 설정에서 Parameter 설정 : VERSION처리를 위해 Pipeline에 변수 추가
-2. Genral 영역에서 *이 빌드는 매개변수가 있스빈다.* 체크
-3. 매개변수 추가 Click
+2. General 영역에서 *이 빌드는 매개변수가 있습니다.* 체크
+3. 매개변수 추가 Click > String Parameter
    1. 매개변수명 : VERSION
    2. Default Value: develop
 4. Pipeline 영역
@@ -51,7 +51,7 @@ spring-boot-cicd-demo-dev-rolling 이름으로 Pipeline작성
 6. *VERSION* 변수선언 주석 처리
 
 ```groovy
-// def VERSION = ‘develop’
+// def VERSION = ‘develop’
 ```
 7. Job 설정의 Deploy 변경
 
