@@ -1,7 +1,11 @@
 language: node_js
-install: npm install
-script:
-  - npm run docs:build
+node_js:
+  - "8"
+before_install:
+  - npm install vuepress
+  - npm install
+install : npm run docs:build
+
 deploy:
   provider: pages
   skip-cleanup: true
