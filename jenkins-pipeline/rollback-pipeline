@@ -1,0 +1,22 @@
+@Library('retort-lib') _
+def label = "jenkins-${UUID.randomUUID().toString()}"
+ 
+def ZCP_USERID = 'edu01'
+def K8S_NAMESPACE = 'edu01'
+def TYPE = 'deployment'
+def DEPLOY_NAME = 'spring-boot-cicd-demo'
+
+podTemplate(label:label,
+    serviceAccount: "zcp-system-sa-${ZCP_USERID}",
+    containers: [
+        containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', ttyEnabled: true, command: 'cat')
+    ]) {
+
+    node(label) {
+        stage('ROLLBACK') {
+            container('kubectl') {
+                kubeCmd.rolloutUndo type: TYPE, name: DEPLOY_NAME, namespace: K8S_NAMESPACE, wait: 300
+            }
+        }
+    }
+}

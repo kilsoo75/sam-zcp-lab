@@ -1,0 +1,22 @@
+@Library('retort-lib') _
+def label = "jenkins-${UUID.randomUUID().toString()}"
+ 
+def ZCP_USERID = 'edu01'
+def K8S_NAMESPACE = 'edu01'
+def TYPE = 'deployment'
+
+podTemplate(label:label,
+    serviceAccount: "zcp-system-sa-${ZCP_USERID}",
+    containers: [
+        containerTemplate(name: 'kubectl', image: 'lachlanevenson/k8s-kubectl', ttyEnabled: true, command: 'cat')
+    ]) {
+
+    node(label) {
+        stage('kubectl') {
+            container('kubectl') {
+                kubeCmd.scale type: TYPE, name: ORIGIN_DEPLOYMENT_NAME, replicas: ORIGIN_INSTANCE_COUNT, namespace: K8S_NAMESPACE
+                kubeCmd.scale type: TYPE, name: CANARY_DEPLOYMENT_NAME, replicas: CANARY_INSTANCE_COUNT, namespace: K8S_NAMESPACE
+            }
+        }
+    }
+}
