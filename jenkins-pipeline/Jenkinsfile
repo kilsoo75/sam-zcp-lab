@@ -1,10 +1,10 @@
 @Library('retort-lib') _
 def label = "jenkins-${UUID.randomUUID().toString()}"
  
-def ZCP_USERID = 'edu01'
-def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo'
-def K8S_NAMESPACE = 'edu01'
-def VERSION = 'develop'
+def ZCP_USERID = 'edu01' //console ID
+def DOCKER_IMAGE = 'edu01/spring-boot-cicd-demo' //harbor project name
+def K8S_NAMESPACE = 'edu01' // console id
+//def VERSION = 'develop'
  
 podTemplate(label:label,
     serviceAccount: "zcp-system-sa-${ZCP_USERID}",
@@ -15,7 +15,7 @@ podTemplate(label:label,
     ],
     volumes: [
         hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock'),
-        persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'zcp-jenkins-mvn-repo-custom2')
+        persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'zcp-jenkins-mvn-repo')
     ]) {
  
     node(label) {
@@ -31,16 +31,14 @@ podTemplate(label:label,
  
         stage('BUILD DOCKER IMAGE') {
             container('docker') {
-                dockerCmd.build tag: "${HARBOR_REGISTRY}/${DOCKER_IMAGE}:${VERSION}"
-                dockerCmd.push registry: HARBOR_REGISTRY, imageName: DOCKER_IMAGE, imageVersion: VERSION, credentialsId: "HARBOR_CREDENTIALS"
+                //TODO: Docker image build block
             }
         }
  
         stage('DEPLOY') {
             container('kubectl') {
-                kubeCmd.apply file: 'k8s/service.yaml', namespace: K8S_NAMESPACE
-                kubeCmd.apply file: 'k8s/ingress.yaml', namespace: K8S_NAMESPACE
-                kubeCmd.apply file: 'k8s/deployment.yaml', namespace: K8S_NAMESPACE, wait: 300
+                //TODO: kubectl command block
+                // deploy service, ingress, deployment
             }
         }
     }

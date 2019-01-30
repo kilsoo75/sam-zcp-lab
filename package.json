@@ -28,5 +28,8 @@
     "markdown-it": "^8.4.2",
     "markdown-it-anchor": "^5.0.2",
     "markdown-it-table-of-contents": "^0.4.3"
+  },
+  "devDependencies": {
+    "vuepress": "^0.14.8"
   }
 }
