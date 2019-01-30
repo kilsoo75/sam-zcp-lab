@@ -5,3 +5,5 @@ before_install:
   - npm install
 install : npm run docs:build
 
+script:
+ - ls ./docs/.vuepress/dist
